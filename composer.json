@@ -3,7 +3,7 @@
     "description": "Prototyping space",
     "autoload": {
         "psr-4": {
-            "Codespace\\ScatterBird\\": "src/"
+            "App\\": "src/"
         }
     },
     "authors": [
