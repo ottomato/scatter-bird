@@ -30,7 +30,7 @@ class Start extends Command
         $characterCreation = true;
 
         While ($characterCreation === true) {
-            $openQuestion = new Question('Character creations. What is the name of your character? ');
+            $openQuestion = new Question('Character creation. What is the name of your character? ');
             $name = $helper->ask($input, $output, $openQuestion);
             if ($name) {
                 $character = new Base();
