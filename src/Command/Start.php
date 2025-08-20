@@ -24,6 +24,7 @@ class Start extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->clear();
+
         $helper = $this->getHelper('question');
 
         $characterCreation = true;
@@ -37,7 +38,7 @@ class Start extends Command
                 $output->writeln("Character created successfully.");
                 $characterCreation = false;
             }
-            $this->clear();
+            $this->header($character->getName(), $output);
         }
 
         // Example dynamic room objects
@@ -61,23 +62,25 @@ class Start extends Command
                 return $answer;
             });
 
-            $question->setMaxAttempts(2);
 
             $answer = $helper->ask($input, $output, $question);
-            $this->clear();
 
             if ($answer === 'exit') {
                 $loop = false;
+                $this->clear();
             }
 
             if ($answer === 'show') {
+                $this->header($character->getName(), $output);
                 $output->writeln("In the room you see: " . implode(', ', $roomObjects));
+                $this->footer($output);
             }
 
-            // Handle dynamic show commands
             foreach ($roomObjects as $object) {
                 if ($answer === 'show ' . $object) {
+                    $this->header($character->getName(), $output);
                     $output->writeln("You see a $object in the room.");
+                    $this->footer($output);
                 }
             }
         }
@@ -88,5 +91,18 @@ class Start extends Command
     private function clear()
     {
         system('clear');
+    }
+
+    private function header(string $name, $output): void
+    {
+        $this->clear();
+        $output->writeln('====================');
+        $output->writeln('Character: ' . $name);
+        $output->writeln('====================');
+    }
+
+    private function footer($output): void
+    {
+        $output->writeln("\n");
     }
 }
