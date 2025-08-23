@@ -3,10 +3,12 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
+use App\Command\Dev;
 use App\Command\Start;
 
 $application = new Application();
 
+$application->add(new Dev());
 $application->add(new Start());
 
 $application->run();
